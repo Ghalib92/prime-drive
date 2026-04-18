@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { cars } from '../data/cars';
 import '../styles/pages.css';
@@ -8,33 +8,29 @@ export default function Cars() {
   const [maxPrice, setMaxPrice] = useState(9000000);
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedListing, setSelectedListing] = useState('');
-  const [filteredCars, setFilteredCars] = useState(cars);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   const brands = [...new Set(cars.map(car => car.name.split(' ')[0]))].sort((a, b) => a.localeCompare(b));
 
-  useEffect(() => {
-    const q = search.toLowerCase();
-    let results = cars.filter(car => {
-      const matchSearch =
-        !q ||
-        car.name.toLowerCase().includes(q) ||
-        car.fuel.toLowerCase().includes(q) ||
-        car.transmission.toLowerCase().includes(q) ||
-        car.year.toString().includes(q) ||
-        car.location.toLowerCase().includes(q);
+  const q = search.toLowerCase();
+  const filteredCars = cars.filter(car => {
+    const matchSearch =
+      !q ||
+      car.name.toLowerCase().includes(q) ||
+      car.fuel.toLowerCase().includes(q) ||
+      car.transmission.toLowerCase().includes(q) ||
+      car.year.toString().includes(q) ||
+      car.location.toLowerCase().includes(q);
 
-      const matchBrand = !selectedBrand || car.name.toLowerCase().startsWith(selectedBrand.toLowerCase());
-      const matchListing =
-        !selectedListing ||
-        (selectedListing === 'forSale' && car.forSale) ||
-        (selectedListing === 'forHire' && car.forHire);
-      const matchPrice = car.price <= maxPrice;
+    const matchBrand = !selectedBrand || car.name.toLowerCase().startsWith(selectedBrand.toLowerCase());
+    const matchListing =
+      !selectedListing ||
+      (selectedListing === 'forSale' && car.forSale) ||
+      (selectedListing === 'forHire' && car.forHire);
+    const matchPrice = car.price <= maxPrice;
 
-      return matchSearch && matchBrand && matchListing && matchPrice;
-    });
-    setFilteredCars(results);
-  }, [search, selectedBrand, selectedListing, maxPrice]);
+    return matchSearch && matchBrand && matchListing && matchPrice;
+  });
 
   const activeFilterCount = [
     search,
