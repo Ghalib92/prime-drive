@@ -380,7 +380,21 @@
 }
 
 .car-image,
-.vehicle-image,
+.vehicle-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #1C1C1E;
+}
+
+.car-image img,
+.vehicle-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .event-image {
   position: relative;
   width: 100%;
@@ -388,8 +402,6 @@
   overflow: hidden;
 }
 
-.car-image img,
-.vehicle-image img,
 .event-image img {
   width: 100%;
   height: 100%;
@@ -581,15 +593,17 @@
 
 .main-image {
   width: 100%;
-  height: 400px;
+  aspect-ratio: 16 / 9;
+  max-height: 520px;
   border-radius: 10px;
   overflow: hidden;
+  background: #1C1C1E;
 }
 
 .main-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .detail-header h1 {
@@ -692,7 +706,8 @@
 .thumbnail-btn img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #1C1C1E;
   display: block;
 }
 
@@ -1817,19 +1832,16 @@ legend {
 
 .preview-card-img {
   position: relative;
-  height: 215px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
+  background: #1C1C1E;
 }
 
 .preview-card-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.preview-card:hover .preview-card-img img {
-  transform: scale(1.08);
+  object-fit: contain;
 }
 
 .preview-card-img-overlay {
@@ -2534,7 +2546,23 @@ legend {
   }
 }
 
+@media (max-width: 1024px) {
+  .main-image {
+    max-height: 420px;
+  }
+}
+
 @media (max-width: 768px) {
+  .main-image {
+    max-height: none;
+    aspect-ratio: 4 / 3;
+  }
+
+  .thumbnail-btn {
+    width: 64px;
+    height: 48px;
+  }
+
   .hero-section {
     min-height: 100svh;
   }
@@ -2614,6 +2642,15 @@ legend {
 }
 
 @media (max-width: 480px) {
+  .main-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .car-image,
+  .vehicle-image {
+    aspect-ratio: 4 / 3;
+  }
+
   .hero-content {
     padding: 24px 16px;
   }
